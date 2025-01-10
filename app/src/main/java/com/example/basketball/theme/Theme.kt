@@ -1,42 +1,43 @@
-package com.example.basketball.theme
+package com.example.basketball.ui.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+// Custom colors to match basketball theme
+private val Gold = Color(0xFFFFD700)
+private val DarkBackground = Color(0xFF000000)
+private val DarkSurface = Color(0xFF1C1C1C)
+private val Gray = Color(0xFF808080)
+
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Gold,
+    onPrimary = Color.Black,
+    secondary = Gray,
+    background = DarkBackground,
+    surface = DarkSurface,
+    onSurface = Color.White,
+    onBackground = Color.White
 )
 
+// Light theme could be kept for future use but modified to match brand
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Gold,
+    onPrimary = Color.Black,
+    secondary = Gray,
+    background = Color.White,
+    surface = Color(0xFFF5F5F5),
+    onSurface = Color.Black,
+    onBackground = Color.Black
 )
 
 @Composable
 fun BasketBallTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = true, // Force dark theme as default
+    dynamicColor: Boolean = false, // Disable dynamic color to maintain consistent branding
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -44,7 +45,6 @@ fun BasketBallTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -55,3 +55,5 @@ fun BasketBallTheme(
         content = content
     )
 }
+
+
